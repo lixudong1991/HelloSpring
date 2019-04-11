@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="lxd.Aop"></context:component-scan>
+
+    <!--spring xml模式配置Aop 如下-->
+
+    <!--1，配置切入的类的bean-->
+    <bean id="logAspect" class="lxd.Aop.XmlMod.Utils.LogAspect"></bean>
+    <!--2，使用aop:config标签开始配置-->
+    <aop:config>
+        <!--3,使用aop:aspect配置切面 id:为该切面起的唯一ID，ref:使用该bean作为切入类-->
+        <aop:aspect id="aspect" ref="logAspect">
+            <!--4,配置切入的具体信息
+                 method:配置使用切入类的哪个方法切入。
+                 pointcut:配置被切入类的被切入方法
+                 表达式:"execution(访问修饰符 返回值 包名.包名...类名.方法名(参数列表))"
+
+                 aop:before:配置切入方法在被切入方法之前执行
+                 aop:after:配置切入方法在被切入方法之后执行
+                 aop:around:配置切入方法在被切入方法环绕执行
+                 aop:after-throwing:配置切入方法在被切入方法抛出异常时执行
+                 aop:after-returning：
+            -->
+            <aop:before method="printLog" pointcut="execution(public void lxd.Aop.XmlMod.Service.Impl.UserServiceImpl.saveUser())"></aop:before>
+            <aop:after-throwing method="onExceptionLog" pointcut="execution(public void lxd.Aop.XmlMod.Service.Impl.UserServiceImpl.updateUser(int))"></aop:after-throwing>
+        </aop:aspect>
+
+    </aop:config>
+</beans>

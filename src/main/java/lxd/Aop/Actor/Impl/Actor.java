@@ -1,6 +1,6 @@
-package lxd.spring.Aop.Actor.Impl;
+package lxd.Aop.Actor.Impl;
 
-import lxd.spring.Aop.Actor.ActorI;
+import lxd.Aop.Actor.ActorI;
 
 public class Actor implements ActorI {
     @Override

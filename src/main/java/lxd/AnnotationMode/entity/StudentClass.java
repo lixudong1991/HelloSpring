@@ -1,4 +1,4 @@
-package lxd.spring.AnnotationMode.entity;
+package lxd.AnnotationMode.entity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

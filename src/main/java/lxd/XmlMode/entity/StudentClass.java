@@ -1,4 +1,4 @@
-package lxd.spring.XmlMode.entity;
+package lxd.XmlMode.entity;
 
 import java.util.Date;
 import java.util.List;

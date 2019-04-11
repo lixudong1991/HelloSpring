@@ -1,4 +1,4 @@
-package lxd.spring.Aop.Actor;
+package lxd.Aop.Actor;
 
 public interface ActorI {
     void basicAct(float arg);

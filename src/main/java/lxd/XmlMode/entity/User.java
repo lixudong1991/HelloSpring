@@ -1,17 +1,9 @@
-package lxd.spring.AnnotationMode.entity;
+package lxd.XmlMode.entity;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-@Component
 public class User {
-    @Value(value = "1")
     int id;
-    @Value(value = "AnnoName")
     String name;
-    @Value(value = "25")
     int age;
-    @Value(value = "1")
     int sex;
 
     public String getName() {

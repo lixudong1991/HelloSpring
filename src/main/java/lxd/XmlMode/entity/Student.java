@@ -1,11 +1,18 @@
-package lxd.spring.XmlMode.entity;
+package lxd.XmlMode.entity;
 
-public class User {
+public class Student {
     int id;
     String name;
     int age;
     int sex;
-
+    public void init()
+    {
+        System.out.println(name+" init");
+    }
+    public void destroy()
+    {
+        System.out.println(name+" destroy");
+    }
     public String getName() {
         return name;
     }
@@ -37,15 +44,5 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", sex=" + sex +
-                '}';
     }
 }

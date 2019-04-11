@@ -1,9 +1,9 @@
-package lxd.spring.XmlMode;
+package lxd.XmlMode;
 
 
-import lxd.spring.AnnotationMode.entity.Student;
-import lxd.spring.AnnotationMode.entity.StudentClass;
-import lxd.spring.AnnotationMode.entity.User;
+import lxd.AnnotationMode.entity.Student;
+import lxd.AnnotationMode.entity.StudentClass;
+import lxd.AnnotationMode.entity.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

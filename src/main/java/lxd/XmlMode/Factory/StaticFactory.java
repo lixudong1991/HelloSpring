@@ -1,6 +1,6 @@
-package lxd.spring.XmlMode.Factory;
+package lxd.XmlMode.Factory;
 
-import lxd.spring.XmlMode.entity.User;
+import lxd.XmlMode.entity.User;
 
 public class StaticFactory {
     public static User createUser(){

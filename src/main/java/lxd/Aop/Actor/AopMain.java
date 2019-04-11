@@ -1,7 +1,7 @@
-package lxd.spring.Aop;
+package lxd.Aop.Actor;
 
-import lxd.spring.Aop.Actor.ActorI;
-import lxd.spring.Aop.Actor.Impl.Actor;
+import lxd.Aop.Actor.ActorI;
+import lxd.Aop.Actor.Impl.Actor;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -9,6 +9,10 @@ import java.lang.reflect.Proxy;
 
 public class AopMain {
     public static void main(String[] args) {
+
+    }
+    void test1()
+    {
         final Actor actor=new Actor();
         actor.basicAct(110f);
         actor.dangerAct(500f);
@@ -38,6 +42,7 @@ public class AopMain {
 
         proxyActor.basicAct(210f);
         proxyActor.dangerAct(510f);
-
     }
+
+
 }

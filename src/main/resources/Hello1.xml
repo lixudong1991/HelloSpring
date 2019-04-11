@@ -22,7 +22,7 @@
 
 
     <!--第一种注入方式:通过构造函数注入-->
-    <bean id="studentClass" class="lxd.spring.XmlMode.entity.StudentClass">
+    <bean id="studentClass" class="lxd.XmlMode.entity.StudentClass">
         <constructor-arg name="id" value="1"></constructor-arg>
         <constructor-arg name="time" ref="date"></constructor-arg>
         <constructor-arg name="timeString">
@@ -34,7 +34,7 @@
             <list>
                 <ref bean="singletonStudent"></ref>
                 <ref bean="prototypeStudent"></ref>
-                <bean class="lxd.spring.XmlMode.entity.Student">
+                <bean class="lxd.XmlMode.entity.Student">
                     <property name="id" value="3"></property>
                     <property name="name" value="Student3"></property>
                     <property name="age" value="15"></property>
@@ -56,7 +56,7 @@
                     <ref bean="singletonStudent"></ref>
                 </entry>
                 <entry key="3">
-                    <bean class="lxd.spring.XmlMode.entity.Student">
+                    <bean class="lxd.XmlMode.entity.Student">
                         <property name="id" value="3"></property>
                         <property name="name" value="Student3"></property>
                         <property name="age" value="15"></property>
@@ -68,7 +68,7 @@
     </bean>
 
     <!--第二种注入方式:set方法注入-->
-    <bean id="studentClass1" class="lxd.spring.XmlMode.entity.StudentClass">
+    <bean id="studentClass1" class="lxd.XmlMode.entity.StudentClass">
         <property name="id" value="2"></property>
         <property name="time">
             <bean class="java.util.Date"></bean>
@@ -84,7 +84,7 @@
             <list>
                 <ref bean="singletonStudent"></ref>
                 <ref bean="prototypeStudent"></ref>
-                <bean class="lxd.spring.XmlMode.entity.Student">
+                <bean class="lxd.XmlMode.entity.Student">
                     <property name="id" value="3"></property>
                     <property name="name" value="Student3"></property>
                     <property name="age" value="15"></property>
@@ -106,7 +106,7 @@
                     <ref bean="singletonStudent"></ref>
                 </entry>
                 <entry key="3">
-                    <bean class="lxd.spring.XmlMode.entity.Student">
+                    <bean class="lxd.XmlMode.entity.Student">
                         <property name="id" value="3"></property>
                         <property name="name" value="Student3"></property>
                         <property name="age" value="15"></property>

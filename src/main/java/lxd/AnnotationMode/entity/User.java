@@ -1,18 +1,19 @@
-package lxd.spring.XmlMode.entity;
+package lxd.AnnotationMode.entity;
 
-public class Student {
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class User {
+    @Value(value = "1")
     int id;
+    @Value(value = "AnnoName")
     String name;
+    @Value(value = "25")
     int age;
+    @Value(value = "1")
     int sex;
-    public void init()
-    {
-        System.out.println(name+" init");
-    }
-    public void destroy()
-    {
-        System.out.println(name+" destroy");
-    }
+
     public String getName() {
         return name;
     }
@@ -44,5 +45,15 @@ public class Student {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", sex=" + sex +
+                '}';
     }
 }
