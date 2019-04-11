@@ -11,4 +11,9 @@ public class LogAspect {
     {
         System.out.println("LogAspect ExceptionLog...");
     }
+
+    public void afterMethod()
+    {
+        System.out.println("LogAspect afterMethod...");
+    }
 }

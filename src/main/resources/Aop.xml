@@ -24,7 +24,17 @@
             <!--4,配置切入的具体信息
                  method:配置使用切入类的哪个方法切入。
                  pointcut:配置被切入类的被切入方法
-                 表达式:"execution(访问修饰符 返回值 包名.包名...类名.方法名(参数列表))"
+                 表达式写法:
+                 全匹配方式:"execution(访问修饰符 返回值 包名.包名...类名.方法名(参数列表))"
+                 通配方式:
+                    访问修饰符:可以省略
+                    返回值:可以用 * 代替，表示任意返回值
+                    包名:可以用 * 代替,例如 *.Aop.XmlMod.*.Service.*,    *.*.*.*.Service.UserServiceImpl,  lxd.*.*.*.*.UserServiceImpl， *.*.*.*.*.*   任意*组合名称匹配包名
+                    可以使用..表示当前名称的包下面的所有子包 例如 lxd..,  lxd.Aop..
+                    类名和方法名:可以使用 * 代替
+                    参数列表:可以用*代替(如果有参数)，也可以使用..(有无参数都匹配，参数类型可以是任意类型) 也可以写参数类型，规则如下:
+                         基本类型直接写类型名称 例如 int直接写   *.*.*.*(int)
+                         引用类型必须写 包名.包名...类名 例如 Integer 写*.*.*.*(java.Lang.Integer)   String 写*.*.*.*(java.Lang.String)
 
                  aop:before:配置切入方法在被切入方法之前执行
                  aop:after:配置切入方法在被切入方法之后执行
@@ -32,8 +42,15 @@
                  aop:after-throwing:配置切入方法在被切入方法抛出异常时执行
                  aop:after-returning：
             -->
+
+            <!--配置通用pointcut-->
+            <aop:pointcut id="pointcut1" expression="execution(* lxd..UserServiceImpl.*(..))"></aop:pointcut>
+
             <aop:before method="printLog" pointcut="execution(public void lxd.Aop.XmlMod.Service.Impl.UserServiceImpl.saveUser())"></aop:before>
-            <aop:after-throwing method="onExceptionLog" pointcut="execution(public void lxd.Aop.XmlMod.Service.Impl.UserServiceImpl.updateUser(int))"></aop:after-throwing>
+            <aop:after-throwing method="onExceptionLog" pointcut="execution(* lxd.Aop..UserServiceImpl.updateUser(int))"></aop:after-throwing>
+            
+            <aop:after method="afterMethod" pointcut-ref="pointcut1"></aop:after>
+
         </aop:aspect>
 
     </aop:config>

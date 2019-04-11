@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(int id){
         System.out.println("updateUser");
-        throw new RuntimeException("test Exception");
+      //  throw new RuntimeException("test Exception");
     }
 
     @Override

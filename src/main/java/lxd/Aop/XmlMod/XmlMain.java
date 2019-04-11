@@ -22,5 +22,6 @@ public class XmlMain {
     public void testXmlAop()  {
         userService.saveUser();
         userService.updateUser(1);
+        userService.deleteUser();
     }
 }
