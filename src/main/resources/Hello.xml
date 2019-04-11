@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--bean创建第一种方式:使用默认构造函数创建-->
+    <bean id="user1" class="lxd.spring.XmlMode.entity.User" scope="prototype">
+        <property name="id" value="1"></property>
+        <property name="name" value="xxx"></property>
+        <property name="age" value="15"></property>
+        <property name="sex" value="0"></property>
+    </bean>
+    <!--bean创建第二种方式:使用工厂静态方法创建-->
+    <bean id="staticuser" class="lxd.spring.XmlMode.Factory.StaticFactory" factory-method="createUser"></bean>
+
+    <!--bean创建第三种方式:使用实例工厂方法创建-->
+    <bean id="instanceFactory" class="lxd.spring.XmlMode.Factory.InstanceFactory"></bean>
+    <bean id="instanceUser" class="lxd.spring.XmlMode.entity.User" factory-bean="instanceFactory" factory-method="createUser"></bean>
+
+
+    <!--单例对象的生命周期:
+     创建:容器创建,对象就创建
+     活着:容器只要存在，就一直存在
+     销毁：容器销毁，对象销毁
+    -->
+    <bean id="singletonStudent" class="lxd.spring.XmlMode.entity.Student" scope="singleton" init-method="init" destroy-method="destroy">
+        <property name="id" value="1"></property>
+        <property name="name" value="singletonStudent"></property>
+        <property name="age" value="15"></property>
+        <property name="sex" value="0"></property>
+    </bean>
+    <!--多例例对象的生命周期：
+     创建:每次使用就创建。
+     活着:只要在使用，就活着
+     销毁：当对象长时间不适用，并且也没有别的对象引用，有垃圾回收器销毁-->
+    <bean id="prototypeStudent" class="lxd.spring.XmlMode.entity.Student" scope="prototype" init-method="init" destroy-method="destroy">
+        <property name="id" value="2"></property>
+        <property name="name" value="prototypeStudent"></property>
+        <property name="age" value="15"></property>
+        <property name="sex" value="0"></property>
+    </bean>
+
+
+
+</beans>

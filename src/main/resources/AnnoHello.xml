@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+   <!--启动spring扫描指定的包下的注解来生成对应的bean和注入数据-->
+    <context:component-scan base-package="lxd.spring.AnnotationMode.entity"></context:component-scan>
+
+    <bean id="date" class="java.util.Date"></bean>
+    <!--
+    1,创建bean对象的注解:
+    @Component：
+        作用:相当于bean标签，生成类的对象，只能用于类上面
+        属性:value,代表bean的id ,当不写时，生成的bean id是类的名称首字母小写
+        由此注解衍生的注解:
+            @Controller(一般用于表现层),@Service(一般用于业务层),@Repository(一般用于持久层)作用和属性相同
+    2，注入数据的的注解(集合类型属性不能用注解方式注入):
+    以下三个注解只能注入容器中的bean,不能注入基本和String类型
+         @Autowired:不需要set方法就可实现注入。
+         作用:首先按照对象类型在bean容器中寻找相同类型的实例，如果找到唯一的实例，将此对象实例注入。如果找到多个相同类型的实例，则在这些bean中寻找id和属性名称相同的实例，如果找不到id和对象名称相同的实例，
+              则报异常，如果找到，注入此实例。
+         @Qualifier
+         作用:在自动按照类型注入的基础上，再按照bean的id注入,当给类的成员注入时，不能单独使用，当给方法的形参注入时，可以独立使用
+         属性: value:用于指定bean的id
+         @Resource
+         作用;直接按照 属性name指定的名称在容器中id相同的实例注入
+         属性:name:指定寻找的bean 的id;
+    基本和String类型注入:
+         @Value
+         作用:注入基本和String类型，可以借助spring的el表达式读取properties文件中的配置
+         属性:value 指定注入的数据
+    3,设置bean的作用范围:
+          @Scope
+          作用:设置bean的作用范围
+          属性:value:
+          singleton(单例)，prototype(多例),request,session,globalsession
+
+
+   代替配置bean.xml的注解，不需要xml文件
+   @ComponentScan({"xxx.xxx.xx","xxx.xx.xx'...}):
+   作用:写在专用于配置spring的类的上面，代替配置文件中的<context:component-scan></context:component-scan>
+   大括号中代表，要扫描的所有包
+   @Bean
+   作用:写在方法上面，将方法的返回值自动加入bean容器中。
+   属性:name指定bean的id,当不指定时，bean id是方法的名称。
+
+   @PropertySource("classpath:xxx/xxx.properties")
+    作用:写在专用于配置spring的类的上面。根据value指定的名称配置property文件
+    配合@Value和el表达式可注入properties中的数据例如:
+    @Value("${jdbc.driver}")
+    String driver;
+    @Value("${jdbc.url}")
+    String url;
+
+
+    -->
+
+</beans>

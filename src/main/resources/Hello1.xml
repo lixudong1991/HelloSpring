@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <import resource="Hello.xml"></import>
+
+    <bean id="datefactory" class="java.text.SimpleDateFormat">
+        <constructor-arg value="yyyy-MM-dd"></constructor-arg>
+    </bean>
+    <!--使用实例工厂生成日期对象，constructor-arg制定函数参数-->
+    <bean id="date" class="java.util.Date" factory-bean="datefactory" factory-method="parse">
+        <constructor-arg value="2019-01-08"></constructor-arg>
+    </bean>
+
+
+    <!--第一种注入方式:通过构造函数注入-->
+    <bean id="studentClass" class="lxd.spring.XmlMode.entity.StudentClass">
+        <constructor-arg name="id" value="1"></constructor-arg>
+        <constructor-arg name="time" ref="date"></constructor-arg>
+        <constructor-arg name="timeString">
+            <bean class="java.lang.String" factory-bean="datefactory" factory-method="format">
+                <constructor-arg ref="date"></constructor-arg>
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="students">
+            <list>
+                <ref bean="singletonStudent"></ref>
+                <ref bean="prototypeStudent"></ref>
+                <bean class="lxd.spring.XmlMode.entity.Student">
+                    <property name="id" value="3"></property>
+                    <property name="name" value="Student3"></property>
+                    <property name="age" value="15"></property>
+                    <property name="sex" value="0"></property>
+                </bean>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="studentMap">
+            <map>
+                <entry key="1">
+                    <ref bean="singletonStudent"></ref>
+                </entry>
+                <entry>
+                    <key>
+                        <bean class="java.lang.Integer">
+                            <constructor-arg name="value" value="2"></constructor-arg>
+                        </bean>
+                    </key>
+                    <ref bean="singletonStudent"></ref>
+                </entry>
+                <entry key="3">
+                    <bean class="lxd.spring.XmlMode.entity.Student">
+                        <property name="id" value="3"></property>
+                        <property name="name" value="Student3"></property>
+                        <property name="age" value="15"></property>
+                        <property name="sex" value="0"></property>
+                    </bean>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!--第二种注入方式:set方法注入-->
+    <bean id="studentClass1" class="lxd.spring.XmlMode.entity.StudentClass">
+        <property name="id" value="2"></property>
+        <property name="time">
+            <bean class="java.util.Date"></bean>
+        </property>
+        <property name="timeString">
+            <bean class="java.lang.String" factory-bean="datefactory" factory-method="format">
+                <constructor-arg>
+                    <bean class="java.util.Date"></bean>
+                </constructor-arg>
+            </bean>
+        </property>
+        <property name="students">
+            <list>
+                <ref bean="singletonStudent"></ref>
+                <ref bean="prototypeStudent"></ref>
+                <bean class="lxd.spring.XmlMode.entity.Student">
+                    <property name="id" value="3"></property>
+                    <property name="name" value="Student3"></property>
+                    <property name="age" value="15"></property>
+                    <property name="sex" value="0"></property>
+                </bean>
+            </list>
+        </property>
+        <property name="studentMap">
+            <map>
+                <entry key="1">
+                    <ref bean="singletonStudent"></ref>
+                </entry>
+                <entry>
+                    <key>
+                        <bean class="java.lang.Integer">
+                            <constructor-arg name="value" value="2"></constructor-arg>
+                        </bean>
+                    </key>
+                    <ref bean="singletonStudent"></ref>
+                </entry>
+                <entry key="3">
+                    <bean class="lxd.spring.XmlMode.entity.Student">
+                        <property name="id" value="3"></property>
+                        <property name="name" value="Student3"></property>
+                        <property name="age" value="15"></property>
+                        <property name="sex" value="0"></property>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>
