@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 public class UserServiceImpl implements UserService {
 
     @Override
-    public void saveUser(){
+    public void saveUser(int i,String s){
         System.out.println("SaveUser");
     }
 

@@ -13,8 +13,14 @@
 
     <context:component-scan base-package="lxd.Aop"></context:component-scan>
 
-    <!--spring xml模式配置Aop 如下-->
+    <!--spring 注解模式配置Aop 只需配置如下标签，开启spring注解Aop支持,然后如 AnnoLogAspect类所示配置-->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
+
+
+
+
+    <!--spring xml模式配置Aop 如下-->
     <!--1，配置切入的类的bean-->
     <bean id="logAspect" class="lxd.Aop.XmlMod.Utils.LogAspect"></bean>
     <!--2，使用aop:config标签开始配置-->
@@ -37,20 +43,23 @@
                          引用类型必须写 包名.包名...类名 例如 Integer 写*.*.*.*(java.Lang.Integer)   String 写*.*.*.*(java.Lang.String)
 
                  aop:before:配置切入方法在被切入方法之前执行
-                 aop:after:配置切入方法在被切入方法之后执行
-                 aop:around:配置切入方法在被切入方法环绕执行
-                 aop:after-throwing:配置切入方法在被切入方法抛出异常时执行
-                 aop:after-returning：
+                 aop:after-returning：配置切入方法在被切入方法之后执行(当被切入方法抛出异常时不会执行)
+                 aop:after:配置被切入方法执行完后一定执行的方法（切入方法抛出异常时也会执行，相当于try后的finally)
+                 aop:around:配置切入方法在被切入方法环绕执行,环绕方法必须有一个ProceedingJoinPoint类型的参数，在环绕方法中通过此参数的proceed方法调用被切入方法
+                 aop:after-throwing:配置切入方法在被切入方法抛出异常时执行（只有在抛出异常后才会执行，相当于try后的catch)
+
             -->
 
-            <!--配置通用pointcut-->
-            <aop:pointcut id="pointcut1" expression="execution(* lxd..UserServiceImpl.*(..))"></aop:pointcut>
+            <!--配置被切入方法标签(可以被引用),如果配在aop:aspect下 ，则只有当前aop:aspect下的所有标签可以引用，如果配在aop:config下(必须在所有aop:aspect之前)，则所有aop:aspect下的所有标签可以引用-->
+            <aop:pointcut id="pointcut1" expression="execution(* lxd.Aop..UserServiceImpl.updateUser(int))"></aop:pointcut>
 
-            <aop:before method="printLog" pointcut="execution(public void lxd.Aop.XmlMod.Service.Impl.UserServiceImpl.saveUser())"></aop:before>
-            <aop:after-throwing method="onExceptionLog" pointcut="execution(* lxd.Aop..UserServiceImpl.updateUser(int))"></aop:after-throwing>
-            
+            <aop:before method="printLog" pointcut="execution(public void lxd.Aop.XmlMod.Service.Impl.UserServiceImpl.saveUser(..))"></aop:before>
+
+            <aop:after-throwing method="onExceptionLog" pointcut-ref="pointcut1"></aop:after-throwing>
             <aop:after method="afterMethod" pointcut-ref="pointcut1"></aop:after>
+            <aop:after-returning method="afterReturnMethod" pointcut-ref="pointcut1"></aop:after-returning>
 
+            <aop:around method="aroundPrintLog" pointcut="execution(* lxd..UserServiceImpl.deleteUser())"></aop:around>
         </aop:aspect>
 
     </aop:config>

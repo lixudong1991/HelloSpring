@@ -20,7 +20,7 @@ public class XmlMain {
         xmlMain.testXmlAop();
     }
     public void testXmlAop()  {
-        userService.saveUser();
+        userService.saveUser(1,"sssss");
         userService.updateUser(1);
         userService.deleteUser();
     }
